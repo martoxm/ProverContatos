@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="ProverContatos.Api/ProverContatos.Api.csproj" />
+  <Project Path="ProverContatos.Application/ProverContatos.Application.csproj" />
+  <Project Path="ProverContatos.Communication/ProverContatos.Communication.csproj" />
+  <Project Path="ProverContatos.Domain/ProverContatos.Domain.csproj" />
+  <Project Path="ProverContatos.Exception/ProverContatos.Exception.csproj" />
+  <Project Path="ProverContatos.Infrastructure/ProverContatos.Infrastructure.csproj" />
+  <Project Path="ProverContatos.Tests/ProverContatos.Tests.csproj" />
+</Solution>
