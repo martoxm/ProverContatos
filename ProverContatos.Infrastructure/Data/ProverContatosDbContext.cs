@@ -7,7 +7,7 @@ public class ProverContatosDbContext(DbContextOptions<ProverContatosDbContext> o
 {
     public DbSet<Contato> Contatos { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)//LINQ to Entities garente que o EF converta corretamente as queries em C# para SQL, evitando erros de tradução e garantindo que as consultas sejam executadas corretamente no banco de dados.
     {
         modelBuilder.Entity<Contato>(entity =>
         {

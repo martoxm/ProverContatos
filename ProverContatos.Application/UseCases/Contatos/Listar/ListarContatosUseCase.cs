@@ -11,12 +11,12 @@ public class ListarContatosUseCase(IContatoRepository repository) : IListarConta
     {
         var contatos = await _repository.ListarAtivosAsync();
 
-        return contatos.Select(c => new ResponseContatoResumidoJson
+        return [.. contatos.Select(c => new ResponseContatoResumidoJson
         {
             Id = c.Id,
             Nome = c.Nome,
             Idade = c.Idade,
             Sexo = c.Sexo
-        }).ToList();
+        })];
     }
 }

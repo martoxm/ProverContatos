@@ -6,7 +6,7 @@ public class ResponseErroJson
 
     public ResponseErroJson(string message)
     {
-        Errors = new List<string> { message };
+        Errors = [message];
     }
 
     public ResponseErroJson(IList<string> errors)
