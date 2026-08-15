@@ -23,7 +23,6 @@ public class Contato : EntityBase
         Nome = nome;
         DataNascimento = dataNascimento;
         Sexo = sexo;
-        Ativo = true;
     }
 
     public void Atualizar(
