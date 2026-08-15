@@ -6,22 +6,22 @@ using ProverContatos.Exception.ExceptionsBase;
 
 namespace ProverContatos.Application.UseCases.Contatos.Criar;
 
-public class CriarContatoUseCase(IContatoRepository repository, IUnityOfWork unityOfWork) : ICriarContatoUseCase
+public class CriarContatoUseCase(
+    IContatoRepository repository,
+    IUnityOfWork unityOfWork) : ICriarContatoUseCase
 {
     private readonly IContatoRepository _repository = repository;
     private readonly IUnityOfWork _unityOfWork = unityOfWork;
 
-    public async Task<ResponseContatoJson> ExecutarAsync(RequestCriarContatoJson request)
+    public async Task<ResponseContatoJson> ExecutarAsync(
+        RequestCriarContatoJson request)
     {
         Validar(request);
 
-        var contato = new Contato
-        {
-            Nome = request.Nome,
-            DataNascimento = request.DataNascimento,
-            Sexo = request.Sexo,
-            Ativo = true
-        };
+        var contato = new Contato(
+            request.Nome,
+            request.DataNascimento,
+            request.Sexo);
 
         await _repository.AdicionarAsync(contato);
         await _unityOfWork.CommitAsync();
@@ -37,14 +37,18 @@ public class CriarContatoUseCase(IContatoRepository repository, IUnityOfWork uni
         };
     }
 
-    private static void Validar(RequestCriarContatoJson request)
+    private static void Validar(
+        RequestCriarContatoJson request)
     {
         var validator = new CriarContatoValidator();
         var result = validator.Validate(request);
 
         if (!result.IsValid)
         {
-            var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
+            var errors = result.Errors
+                .Select(error => error.ErrorMessage)
+                .ToList();
+
             throw new ProverException(errors);
         }
     }

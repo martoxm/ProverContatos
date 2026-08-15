@@ -480,3 +480,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/ProverContatos.Api/provercontatos.db
+/ProverContatos.Api/provercontatos.db-shm
+/ProverContatos.Api/provercontatos.db-wal
