@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using ProverContatos.Communication.Requests;
+using ProverContatos.Domain.Entities;
 
 namespace ProverContatos.Application.UseCases.Contatos.Criar;
 
@@ -19,14 +20,8 @@ public class CriarContatoValidator : AbstractValidator<RequestCriarContatoJson>
                 .WithMessage("Data de nascimento inválida.");
 
         RuleFor(x => x.DataNascimento)
-            .Must(data =>
-            {
-                var hoje = DateOnly.FromDateTime(DateTime.Today);
-                var idade = hoje.Year - data.Year;
-                if (data > hoje.AddYears(-idade)) idade--;
-                return idade >= 18;
-            })
-            .WithMessage("O contato deve ser maior de idade (mínimo 18 anos).");
+            .Must(data => Contato.CalcularIdade(data) >= 18)
+                .WithMessage("O contato deve ser maior de idade " + "(mínimo 18 anos).");
 
         RuleFor(x => x.Sexo)
             .IsInEnum().WithMessage("Sexo inválido.");

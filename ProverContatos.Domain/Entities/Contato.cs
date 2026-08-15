@@ -9,7 +9,7 @@ public class Contato : EntityBase
     public Sexo Sexo { get; private set; }
     public bool Ativo { get; private set; } = true;
 
-    public int Idade => CalcularIdade();
+    public int Idade => CalcularIdade(DataNascimento);
 
     private Contato()
     {
@@ -46,13 +46,13 @@ public class Contato : EntityBase
         Ativo = false;
     }
 
-    private int CalcularIdade()
+    public static int CalcularIdade(DateOnly dataNascimento)
     {
         var hoje = DateOnly.FromDateTime(DateTime.Today);
 
-        var idade = hoje.Year - DataNascimento.Year;
+        var idade = hoje.Year - dataNascimento.Year;
 
-        if (DataNascimento > hoje.AddYears(-idade))
+        if (dataNascimento > hoje.AddYears(-idade))
         {
             idade--;
         }

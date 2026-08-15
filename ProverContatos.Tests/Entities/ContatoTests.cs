@@ -77,4 +77,15 @@ public class ContatoTests
 
         contato.Idade.Should().Be(30);
     }
+
+    [Fact]
+    public void CalcularIdade_DeveRetornarIdadeCorreta()
+    {
+        var hoje = DateOnly.FromDateTime(DateTime.Today);
+        var dataNascimento = hoje.AddYears(-30);
+
+        var idade = Contato.CalcularIdade(dataNascimento);
+
+        idade.Should().Be(30);
+    }
 }
