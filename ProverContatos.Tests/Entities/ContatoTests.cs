@@ -88,4 +88,36 @@ public class ContatoTests
 
         idade.Should().Be(30);
     }
+
+    [Fact]
+    public void DataNascimentoEhValida_DeveRetornarFalse_QuandoDataForFutura()
+    {
+        // Arrange
+        var dataNascimento = DateOnly
+            .FromDateTime(DateTime.Today)
+            .AddDays(1);
+
+        // Act
+        var resultado = Contato.DataNascimentoEhValida(
+            dataNascimento);
+
+        // Assert
+        resultado.Should().BeFalse();
+    }
+
+    [Fact]
+    public void EhMaiorDeIdade_DeveRetornarTrue_QuandoContatoTiver18Anos()
+    {
+        // Arrange
+        var dataNascimento = DateOnly
+            .FromDateTime(DateTime.Today)
+            .AddYears(-18);
+
+        // Act
+        var resultado = Contato.EhMaiorDeIdade(
+            dataNascimento);
+
+        // Assert
+        resultado.Should().BeTrue();
+    }
 }
