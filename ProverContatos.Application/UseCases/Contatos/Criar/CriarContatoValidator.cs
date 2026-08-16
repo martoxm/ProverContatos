@@ -14,13 +14,11 @@ public class CriarContatoValidator : AbstractValidator<RequestCriarContatoJson>
 
         RuleFor(x => x.DataNascimento)
             .NotEmpty().WithMessage("A data de nascimento é obrigatória.")
-            .Must(data => data < DateOnly.FromDateTime(DateTime.Today))
-                .WithMessage("A data de nascimento não pode ser maior que a data atual.")
-            .Must(data => data != DateOnly.MinValue)
-                .WithMessage("Data de nascimento inválida.");
+            .Must(Contato.DataNascimentoEhValida)
+                .WithMessage("A data de nascimento não pode ser maior que a data atual.");
 
         RuleFor(x => x.DataNascimento)
-            .Must(data => Contato.CalcularIdade(data) >= 18)
+            .Must(Contato.EhMaiorDeIdade)
                 .WithMessage("O contato deve ser maior de idade " + "(mínimo 18 anos).");
 
         RuleFor(x => x.Sexo)

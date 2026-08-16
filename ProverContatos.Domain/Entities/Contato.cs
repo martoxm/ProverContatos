@@ -58,4 +58,20 @@ public class Contato : EntityBase
 
         return idade;
     }
+
+    public static bool DataNascimentoEhValida(
+        DateOnly dataNascimento)
+    {
+        var hoje = DateOnly.FromDateTime(DateTime.Today);
+
+        return dataNascimento != DateOnly.MinValue
+            && dataNascimento <= hoje;
+    }
+
+    public static bool EhMaiorDeIdade(
+       DateOnly dataNascimento)
+    {
+        return DataNascimentoEhValida(dataNascimento)
+            && CalcularIdade(dataNascimento) >= 18;
+    }
 }
