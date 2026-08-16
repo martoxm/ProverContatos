@@ -1,7 +1,7 @@
-﻿using System.Net;
-using System.Text.Json;
-using ProverContatos.Communication.Responses;
+﻿using ProverContatos.Communication.Responses;
 using ProverContatos.Exception.ExceptionsBase;
+using System.Net;
+using System.Text.Json;
 
 namespace ProverContatos.Api.Middleware;
 
