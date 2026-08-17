@@ -11,7 +11,7 @@ using ProverContatos.Infrastructure.Data;
 namespace ProverContatos.Infrastructure.Migrations
 {
     [DbContext(typeof(ProverContatosDbContext))]
-    [Migration("20260814171349_InitialCreate")]
+    [Migration("20260817022735_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

@@ -1,9 +1,13 @@
 <Solution>
-  <Project Path="ProverContatos.Api/ProverContatos.Api.csproj" />
-  <Project Path="ProverContatos.Application/ProverContatos.Application.csproj" />
-  <Project Path="ProverContatos.Communication/ProverContatos.Communication.csproj" />
-  <Project Path="ProverContatos.Domain/ProverContatos.Domain.csproj" />
-  <Project Path="ProverContatos.Exception/ProverContatos.Exception.csproj" />
-  <Project Path="ProverContatos.Infrastructure/ProverContatos.Infrastructure.csproj" />
-  <Project Path="ProverContatos.Tests/ProverContatos.Tests.csproj" />
+  <Folder Name="/src/">
+    <Project Path="src/ProverContatos.Api/ProverContatos.Api.csproj" />
+    <Project Path="src/ProverContatos.Application/ProverContatos.Application.csproj" />
+    <Project Path="src/ProverContatos.Communication/ProverContatos.Communication.csproj" />
+    <Project Path="src/ProverContatos.Domain/ProverContatos.Domain.csproj" />
+    <Project Path="src/ProverContatos.Exception/ProverContatos.Exception.csproj" />
+    <Project Path="src/ProverContatos.Infrastructure/ProverContatos.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ProverContatos.Tests/ProverContatos.Tests.csproj" />
+  </Folder>
 </Solution>
