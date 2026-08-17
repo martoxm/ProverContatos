@@ -4,7 +4,7 @@ namespace ProverContatos.Communication.Responses;
 
 public class ResponseContatoJson
 {
-    public long Id { get; set; }
+    public Guid Id { get; set; }
     public string Nome { get; set; } = string.Empty;
     public DateOnly DataNascimento { get; set; }
     public Sexo Sexo { get; set; }

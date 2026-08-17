@@ -8,7 +8,7 @@ public class BuscarContatoUseCase(IContatoRepository repository) : IBuscarContat
 {
     private readonly IContatoRepository _repository = repository;
 
-    public async Task<ResponseContatoJson> ExecutarAsync(long id)
+    public async Task<ResponseContatoJson> ExecutarAsync(Guid id)
     {
         var contato = await _repository.BuscarAtivosPorIdAsync(id)
             ?? throw new NotFoundException("Contato não encontrado ou inativo.");

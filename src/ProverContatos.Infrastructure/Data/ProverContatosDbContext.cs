@@ -8,14 +8,17 @@ public class ProverContatosDbContext(
 {
     public DbSet<Contato> Contatos { get; set; }
 
-    protected override void OnModelCreating(
-        ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Contato>(entity =>
         {
             entity.ToTable("Contatos");
 
             entity.HasKey(contato => contato.Id);
+
+            entity.Property(contato => contato.Id)
+                .HasColumnType("TEXT")
+                .ValueGeneratedNever();
 
             entity.Property(contato => contato.Nome)
                 .IsRequired()

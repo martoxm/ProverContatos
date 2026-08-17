@@ -2,7 +2,6 @@
 using ProverContatos.Communication.Responses;
 using ProverContatos.Domain.Entities;
 using ProverContatos.Domain.Repositories;
-using ProverContatos.Exception.ExceptionsBase;
 
 namespace ProverContatos.Application.UseCases.Contatos.Criar;
 
@@ -16,8 +15,6 @@ public class CriarContatoUseCase(
     public async Task<ResponseContatoJson> ExecutarAsync(
         RequestCriarContatoJson request)
     {
-        Validar(request);
-
         var contato = new Contato(
             request.Nome,
             request.DataNascimento,
@@ -35,21 +32,5 @@ public class CriarContatoUseCase(
             Idade = contato.Idade,
             Ativo = contato.Ativo
         };
-    }
-
-    private static void Validar(
-        RequestCriarContatoJson request)
-    {
-        var validator = new CriarContatoValidator();
-        var result = validator.Validate(request);
-
-        if (!result.IsValid)
-        {
-            var errors = result.Errors
-                .Select(error => error.ErrorMessage)
-                .ToList();
-
-            throw new ProverException(errors);
-        }
     }
 }

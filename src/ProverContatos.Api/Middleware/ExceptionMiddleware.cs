@@ -1,4 +1,5 @@
-﻿using ProverContatos.Communication.Responses;
+﻿using FluentValidation;
+using ProverContatos.Communication.Responses;
 using ProverContatos.Exception.ExceptionsBase;
 using System.Net;
 using System.Text.Json;
@@ -19,6 +20,10 @@ public class ExceptionMiddleware(RequestDelegate next)
         {
             await TratarProverExceptionAsync(context, ex);
         }
+        catch (ValidationException ex)
+        {
+            await TratarValidationExceptionAsync(context, ex);
+        }
         catch (System.Exception)
         {
             await TratarErroDesconhecidoAsync(context);
@@ -31,6 +36,19 @@ public class ExceptionMiddleware(RequestDelegate next)
         context.Response.StatusCode = (int)ex.StatusCode;
 
         var response = new ResponseErroJson(ex.Errors);
+        await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+    }
+
+    private static async Task TratarValidationExceptionAsync(HttpContext context, ValidationException ex)
+    {
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+        var errors = ex.Errors
+            .Select(e => e.ErrorMessage)
+            .ToList();
+
+        var response = new ResponseErroJson(errors);
         await context.Response.WriteAsync(JsonSerializer.Serialize(response));
     }
 

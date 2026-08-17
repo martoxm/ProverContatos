@@ -19,9 +19,8 @@ namespace ProverContatos.Infrastructure.Migrations
 
             modelBuilder.Entity("ProverContatos.Domain.Entities.Contato", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("INTEGER");

@@ -8,9 +8,9 @@ public interface IContatoRepository
 
     Task<List<Contato>> ListarAtivosAsync();
 
-    Task<Contato?> BuscarPorIdAsync(long id);
+    Task<Contato?> BuscarPorIdAsync(Guid id);
 
-    Task<Contato?> BuscarAtivosPorIdAsync(long id);
+    Task<Contato?> BuscarAtivosPorIdAsync(Guid id);
 
     void Atualizar(Contato contato);
 

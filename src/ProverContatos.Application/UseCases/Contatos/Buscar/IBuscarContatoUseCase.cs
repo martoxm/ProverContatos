@@ -4,5 +4,5 @@ namespace ProverContatos.Application.UseCases.Contatos.Buscar;
 
 public interface IBuscarContatoUseCase
 {
-    Task<ResponseContatoJson> ExecutarAsync(long id);
+    Task<ResponseContatoJson> ExecutarAsync(Guid id);
 }

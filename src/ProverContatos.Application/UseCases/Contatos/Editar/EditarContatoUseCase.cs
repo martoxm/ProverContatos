@@ -12,14 +12,11 @@ public class EditarContatoUseCase(
     private readonly IUnityOfWork _unityOfWork = unityOfWork;
 
     public async Task ExecutarAsync(
-        long id,
+        Guid id,
         RequestEditarContatoJson request)
     {
-        Validar(request);
-
         var contato = await _repository.BuscarAtivosPorIdAsync(id)
-            ?? throw new NotFoundException(
-                "Contato não encontrado ou inativo.");
+            ?? throw new NotFoundException("Contato não encontrado ou inativo.");
 
         contato.Atualizar(
             request.Nome,
@@ -27,23 +24,6 @@ public class EditarContatoUseCase(
             request.Sexo);
 
         _repository.Atualizar(contato);
-
         await _unityOfWork.CommitAsync();
-    }
-
-    private static void Validar(
-        RequestEditarContatoJson request)
-    {
-        var validator = new EditarContatoValidator();
-        var result = validator.Validate(request);
-
-        if (!result.IsValid)
-        {
-            var errors = result.Errors
-                .Select(error => error.ErrorMessage)
-                .ToList();
-
-            throw new ProverException(errors);
-        }
     }
 }

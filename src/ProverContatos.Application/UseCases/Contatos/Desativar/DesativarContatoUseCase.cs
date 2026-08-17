@@ -10,7 +10,7 @@ public class DesativarContatoUseCase(
     private readonly IContatoRepository _repository = repository;
     private readonly IUnityOfWork _unityOfWork = unityOfWork;
 
-    public async Task ExecutarAsync(long id)
+    public async Task ExecutarAsync(Guid id)
     {
         var contato = await _repository.BuscarAtivosPorIdAsync(id)
             ?? throw new NotFoundException(

@@ -2,5 +2,10 @@
 
 public abstract class EntityBase
 {
-    public long Id { get; set; }
+    public Guid Id { get; set; }
+
+    public EntityBase()
+    {
+        Id = Guid.NewGuid();
+    }
 }

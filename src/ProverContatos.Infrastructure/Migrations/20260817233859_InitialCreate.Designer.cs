@@ -11,7 +11,7 @@ using ProverContatos.Infrastructure.Data;
 namespace ProverContatos.Infrastructure.Migrations
 {
     [DbContext(typeof(ProverContatosDbContext))]
-    [Migration("20260817022735_InitialCreate")]
+    [Migration("20260817233859_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -22,9 +22,8 @@ namespace ProverContatos.Infrastructure.Migrations
 
             modelBuilder.Entity("ProverContatos.Domain.Entities.Contato", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("INTEGER");

@@ -483,3 +483,5 @@ $RECYCLE.BIN/
 /ProverContatos.Api/provercontatos.db
 /ProverContatos.Api/provercontatos.db-shm
 /ProverContatos.Api/provercontatos.db-wal
+/src/ProverContatos.Api/provercontatos.db
+/src/ProverContatos.Api/provercontatos.db-journal

@@ -1,12 +1,10 @@
 ﻿using FluentValidation;
-using ProverContatos.Communication.Requests;
-using ProverContatos.Domain.Entities;
 
-namespace ProverContatos.Application.UseCases.Contatos.Criar;
+namespace ProverContatos.Domain.Entities;
 
-public class CriarContatoValidator : AbstractValidator<RequestCriarContatoJson>
+public class ContatoValidator : AbstractValidator<Contato>
 {
-    public CriarContatoValidator()
+    public ContatoValidator()
     {
         RuleFor(x => x.Nome)
             .NotEmpty().WithMessage("O nome é obrigatório.")
@@ -15,11 +13,11 @@ public class CriarContatoValidator : AbstractValidator<RequestCriarContatoJson>
         RuleFor(x => x.DataNascimento)
             .NotEmpty().WithMessage("A data de nascimento é obrigatória.")
             .Must(Contato.DataNascimentoEhValida)
-                .WithMessage("A data de nascimento não pode ser maior que a data atual.");
-
-        RuleFor(x => x.DataNascimento)
+                .WithMessage("A data de nascimento não pode ser maior que a data atual.")
             .Must(Contato.EhMaiorDeIdade)
-                .WithMessage("O contato deve ser maior de idade " + "(mínimo 18 anos).");
+                .WithMessage("O contato deve ser maior de idade (mínimo 18 anos).")
+            .Must(Contato.IdadeEhDiferenteDeZero)
+                .WithMessage("A idade do contato não pode ser zero.");
 
         RuleFor(x => x.Sexo)
             .IsInEnum().WithMessage("Sexo inválido.");

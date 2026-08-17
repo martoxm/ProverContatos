@@ -21,13 +21,13 @@ public class ContatoRepository(ProverContatosDbContext context) : IContatoReposi
             .ToListAsync();
     }
 
-    public async Task<Contato?> BuscarPorIdAsync(long id)
+    public async Task<Contato?> BuscarPorIdAsync(Guid id)
     {
         return await _context.Contatos
             .FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<Contato?> BuscarAtivosPorIdAsync(long id)
+    public async Task<Contato?> BuscarAtivosPorIdAsync(Guid id)
     {
         return await _context.Contatos
             .FirstOrDefaultAsync(c => c.Id == id && c.Ativo);

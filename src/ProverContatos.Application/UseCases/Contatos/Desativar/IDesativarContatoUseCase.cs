@@ -2,5 +2,5 @@
 
 public interface IDesativarContatoUseCase
 {
-    Task ExecutarAsync(long id);
+    Task ExecutarAsync(Guid id);
 }

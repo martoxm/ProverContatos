@@ -2,5 +2,5 @@
 
 public interface IExcluirContatoUseCase
 {
-    Task ExecutarAsync(long id);
+    Task ExecutarAsync(Guid id);
 }

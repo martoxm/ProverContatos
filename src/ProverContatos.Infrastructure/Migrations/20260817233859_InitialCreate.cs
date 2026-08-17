@@ -15,8 +15,7 @@ namespace ProverContatos.Infrastructure.Migrations
                 name: "Contatos",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Nome = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     DataNascimento = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Sexo = table.Column<int>(type: "INTEGER", nullable: false),

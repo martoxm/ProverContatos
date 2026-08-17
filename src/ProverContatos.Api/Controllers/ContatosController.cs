@@ -39,7 +39,7 @@ public class ContatosController : ControllerBase
     [ProducesResponseType(typeof(ResponseErroJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> BuscarPorId(
         [FromServices] IBuscarContatoUseCase useCase,
-        [FromRoute] long id)
+        [FromRoute] Guid id)
     {
         var response = await useCase.ExecutarAsync(id);
         return Ok(response);
@@ -51,7 +51,7 @@ public class ContatosController : ControllerBase
     [ProducesResponseType(typeof(ResponseErroJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Editar(
         [FromServices] IEditarContatoUseCase useCase,
-        [FromRoute] long id,
+        [FromRoute] Guid id,
         [FromBody] RequestEditarContatoJson request)
     {
         await useCase.ExecutarAsync(id, request);
@@ -63,7 +63,7 @@ public class ContatosController : ControllerBase
     [ProducesResponseType(typeof(ResponseErroJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Desativar(
         [FromServices] IDesativarContatoUseCase useCase,
-        [FromRoute] long id)
+        [FromRoute] Guid id)
     {
         await useCase.ExecutarAsync(id);
         return NoContent();
@@ -74,7 +74,7 @@ public class ContatosController : ControllerBase
     [ProducesResponseType(typeof(ResponseErroJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Ativar(
         [FromServices] IAtivarContatoUseCase useCase,
-        [FromRoute] long id)
+        [FromRoute] Guid id)
     {
         await useCase.ExecutarAsync(id);
         return NoContent();
@@ -85,7 +85,7 @@ public class ContatosController : ControllerBase
     [ProducesResponseType(typeof(ResponseErroJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Excluir(
         [FromServices] IExcluirContatoUseCase useCase,
-        [FromRoute] long id)
+        [FromRoute] Guid id)
     {
         await useCase.ExecutarAsync(id);
         return NoContent();
