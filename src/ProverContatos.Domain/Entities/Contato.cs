@@ -76,10 +76,9 @@ public class Contato : EntityBase
             && CalcularIdade(dataNascimento) >= 18;
     }
 
-    internal static bool IdadeEhDiferenteDeZero(
-       DateOnly dataNascimento)
+    internal static bool IdadeEhDiferenteDeZero(DateOnly dataNascimento)
     {
         return DataNascimentoEhValida(dataNascimento)
-            && CalcularIdade(dataNascimento) != 0;
+            && CalcularIdade(dataNascimento) > 0;
     }
 }
