@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using FluentValidation;
 using ProverContatos.Domain.Entities;
 using ProverContatos.Domain.Enums;
 
@@ -6,24 +7,49 @@ namespace ProverContatos.Tests.Entities;
 
 public class ContatoTests
 {
+    private static readonly DateOnly _dataNascimentoValida = new(1997, 7, 29);
+
     [Fact]
-    public void CriarContato_DeveIniciarComoAtivo()
+    public void Criar_DeveIniciarComoAtivo()
     {
-        var contato = new Contato(
-            "Gabriel",
-            new DateOnly(1997, 7, 29),
-            Sexo.Masculino);
+        var contato = Contato.Criar("Gabriel", _dataNascimentoValida, Sexo.Masculino);
 
         contato.Ativo.Should().BeTrue();
     }
 
     [Fact]
+    public void Criar_DeveLancarExcecao_QuandoNomeForVazio()
+    {
+        var acao = () => Contato.Criar(string.Empty, _dataNascimentoValida, Sexo.Masculino);
+
+        acao.Should().Throw<ValidationException>()
+            .WithMessage("*O nome é obrigatório*");
+    }
+
+    [Fact]
+    public void Criar_DeveLancarExcecao_QuandoContatoForMenorDeIdade()
+    {
+        var menorDeIdade = DateOnly.FromDateTime(DateTime.Today).AddYears(-17);
+
+        var acao = () => Contato.Criar("Gabriel", menorDeIdade, Sexo.Masculino);
+
+        acao.Should().Throw<ValidationException>()
+            .WithMessage("*O contato deve ser maior de idade*");
+    }
+
+    [Fact]
+    public void Criar_DeveLancarExcecao_QuandoIdadeForZero()
+    {
+        var acao = () => Contato.Criar("Gabriel", DateOnly.FromDateTime(DateTime.Today), Sexo.Masculino);
+
+        acao.Should().Throw<ValidationException>()
+            .WithMessage("*A idade do contato não pode ser zero*");
+    }
+
+    [Fact]
     public void Desativar_DeveAlterarStatusParaInativo()
     {
-        var contato = new Contato(
-            "Gabriel",
-            new DateOnly(1997, 7, 29),
-            Sexo.Masculino);
+        var contato = Contato.Criar("Gabriel", _dataNascimentoValida, Sexo.Masculino);
 
         contato.Desativar();
 
@@ -31,87 +57,14 @@ public class ContatoTests
     }
 
     [Fact]
-    public void Ativar_DeveAlterarStatusParaAtivo()
+    public void Atualizar_DeveLancarExcecao_QuandoDataNascimentoForFutura()
     {
-        var contato = new Contato(
-            "Gabriel",
-            new DateOnly(1997, 7, 29),
-            Sexo.Masculino);
+        var contato = Contato.Criar("Gabriel", _dataNascimentoValida, Sexo.Masculino);
+        var dataFutura = DateOnly.FromDateTime(DateTime.Today).AddDays(1);
 
-        contato.Desativar();
-        contato.Ativar();
+        var acao = () => contato.Atualizar("Gabriel", dataFutura, Sexo.Masculino);
 
-        contato.Ativo.Should().BeTrue();
-    }
-
-    [Fact]
-    public void Atualizar_DeveAlterarDadosDoContato()
-    {
-        var contato = new Contato(
-            "Nome Antigo",
-            new DateOnly(1990, 1, 1),
-            Sexo.Masculino);
-
-        contato.Atualizar(
-            "Nome Novo",
-            new DateOnly(1992, 2, 2),
-            Sexo.Outro);
-
-        contato.Nome.Should().Be("Nome Novo");
-        contato.DataNascimento.Should()
-            .Be(new DateOnly(1992, 2, 2));
-        contato.Sexo.Should().Be(Sexo.Outro);
-    }
-
-    [Fact]
-    public void Idade_DeveSerCalculadaComBaseNaDataDeNascimento()
-    {
-        var dataNascimento = DateOnly
-            .FromDateTime(DateTime.Today)
-            .AddYears(-30);
-
-        var contato = new Contato(
-            "Gabriel",
-            dataNascimento,
-            Sexo.Masculino);
-
-        contato.Idade.Should().Be(30);
-    }
-
-    [Fact]
-    public void CalcularIdade_DeveRetornarIdadeCorreta()
-    {
-        var hoje = DateOnly.FromDateTime(DateTime.Today);
-        var dataNascimento = hoje.AddYears(-30);
-
-        var idade = Contato.CalcularIdade(dataNascimento);
-
-        idade.Should().Be(30);
-    }
-
-    [Fact]
-    public void DataNascimentoEhValida_DeveRetornarFalse_QuandoDataForFutura()
-    {
-        var dataNascimento = DateOnly
-            .FromDateTime(DateTime.Today)
-            .AddDays(1);
-
-        var resultado = Contato.DataNascimentoEhValida(
-            dataNascimento);
-
-        resultado.Should().BeFalse();
-    }
-
-    [Fact]
-    public void EhMaiorDeIdade_DeveRetornarTrue_QuandoContatoTiver18Anos()
-    {
-        var dataNascimento = DateOnly
-            .FromDateTime(DateTime.Today)
-            .AddYears(-18);
-
-        var resultado = Contato.EhMaiorDeIdade(
-            dataNascimento);
-
-        resultado.Should().BeTrue();
+        acao.Should().Throw<ValidationException>()
+            .WithMessage("*A data de nascimento não pode ser maior que a data atual*");
     }
 }

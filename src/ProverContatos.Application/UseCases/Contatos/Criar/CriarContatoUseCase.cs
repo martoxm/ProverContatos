@@ -15,7 +15,7 @@ public class CriarContatoUseCase(
     public async Task<ResponseContatoJson> ExecutarAsync(
         RequestCriarContatoJson request)
     {
-        var contato = new Contato(
+        var contato = Contato.Criar(
             request.Nome,
             request.DataNascimento,
             request.Sexo);

@@ -12,18 +12,24 @@ public class Contato : EntityBase
 
     public int Idade => CalcularIdade(DataNascimento);
 
-    private Contato() { }
+    private Contato()
+    { }
 
-    public Contato(
-        string nome,
-        DateOnly dataNascimento,
-        Sexo sexo)
+    public static Contato Criar(
+       string nome,
+       DateOnly dataNascimento,
+       Sexo sexo)
     {
-        Nome = nome;
-        DataNascimento = dataNascimento;
-        Sexo = sexo;
+        var contato = new Contato
+        {
+            Nome = nome,
+            DataNascimento = dataNascimento,
+            Sexo = sexo
+        };
 
-        new ContatoValidator().ValidateAndThrow(this);
+        Validar(contato);
+
+        return contato;
     }
 
     public void Atualizar(
@@ -35,14 +41,17 @@ public class Contato : EntityBase
         DataNascimento = dataNascimento;
         Sexo = sexo;
 
-        new ContatoValidator().ValidateAndThrow(this);
+        Validar(this);
+    }
+
+    private static void Validar(Contato contato)
+    {
+        new ContatoValidator().ValidateAndThrow(contato);
     }
 
     public void Ativar() => Ativo = true;
 
     public void Desativar() => Ativo = false;
-
-
 
     public static int CalcularIdade(DateOnly dataNascimento)
     {
