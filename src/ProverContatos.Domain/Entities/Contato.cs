@@ -44,16 +44,16 @@ public class Contato : EntityBase
         Validar(this);
     }
 
+    public void Ativar() => Ativo = true;
+
+    public void Desativar() => Ativo = false;
+
     private static void Validar(Contato contato)
     {
         new ContatoValidator().ValidateAndThrow(contato);
     }
 
-    public void Ativar() => Ativo = true;
-
-    public void Desativar() => Ativo = false;
-
-    public static int CalcularIdade(DateOnly dataNascimento)
+    internal static int CalcularIdade(DateOnly dataNascimento)
     {
         var hoje = DateOnly.FromDateTime(DateTime.Today);
         var idade = hoje.Year - dataNascimento.Year;
@@ -64,19 +64,19 @@ public class Contato : EntityBase
         return idade;
     }
 
-    public static bool DataNascimentoEhValida(DateOnly dataNascimento)
+    internal static bool DataNascimentoEhValida(DateOnly dataNascimento)
     {
         var hoje = DateOnly.FromDateTime(DateTime.Today);
         return dataNascimento != DateOnly.MinValue && dataNascimento <= hoje;
     }
 
-    public static bool EhMaiorDeIdade(DateOnly dataNascimento)
+    internal static bool EhMaiorDeIdade(DateOnly dataNascimento)
     {
         return DataNascimentoEhValida(dataNascimento)
             && CalcularIdade(dataNascimento) >= 18;
     }
 
-    public static bool IdadeEhDiferenteDeZero(
+    internal static bool IdadeEhDiferenteDeZero(
        DateOnly dataNascimento)
     {
         return DataNascimentoEhValida(dataNascimento)
