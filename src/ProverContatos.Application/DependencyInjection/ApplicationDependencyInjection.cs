@@ -1,4 +1,5 @@
-﻿using ProverContatos.Application.UseCases.Contatos.Ativar;
+﻿using Microsoft.Extensions.DependencyInjection;
+using ProverContatos.Application.UseCases.Contatos.Ativar;
 using ProverContatos.Application.UseCases.Contatos.Buscar;
 using ProverContatos.Application.UseCases.Contatos.Criar;
 using ProverContatos.Application.UseCases.Contatos.Desativar;
@@ -6,7 +7,7 @@ using ProverContatos.Application.UseCases.Contatos.Editar;
 using ProverContatos.Application.UseCases.Contatos.Excluir;
 using ProverContatos.Application.UseCases.Contatos.Listar;
 
-namespace ProverContatos.Api.DependencyInjection;
+namespace ProverContatos.Application.DependencyInjection;
 
 public static class ApplicationDependencyInjection
 {

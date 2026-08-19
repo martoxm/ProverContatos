@@ -1,5 +1,5 @@
-using ProverContatos.Api.DependencyInjection;
 using ProverContatos.Api.Middleware;
+using ProverContatos.Application.DependencyInjection;
 using ProverContatos.Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
