@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ProverContatos.Application.AutoMapper;
 using ProverContatos.Application.UseCases.Contatos.Ativar;
 using ProverContatos.Application.UseCases.Contatos.Buscar;
 using ProverContatos.Application.UseCases.Contatos.Criar;
@@ -13,6 +14,12 @@ public static class ApplicationDependencyInjection
 {
     public static void AddApplication(this IServiceCollection services)
     {
+        AddCasosDeUso(services);
+        AddAutoMapper(services);
+    }
+
+    private static void AddCasosDeUso(this IServiceCollection services)
+    {
         services.AddScoped<ICriarContatoUseCase, CriarContatoUseCase>();
         services.AddScoped<IListarContatosUseCase, ListarContatosUseCase>();
         services.AddScoped<IBuscarContatoUseCase, BuscarContatoUseCase>();
@@ -20,5 +27,10 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IDesativarContatoUseCase, DesativarContatoUseCase>();
         services.AddScoped<IAtivarContatoUseCase, AtivarContatoUseCase>();
         services.AddScoped<IExcluirContatoUseCase, ExcluirContatoUseCase>();
+    }
+
+    private static void AddAutoMapper(this IServiceCollection services)
+    {
+        services.AddAutoMapper(cfg => { }, typeof(AutoMapping));
     }
 }
