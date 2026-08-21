@@ -27,7 +27,7 @@ API RESTful desenvolvida em ASP.NET Core para gerenciamento de contatos, como pa
 - SQLite
 - FluentValidation
 - xUnit
-- Moq
+- AutoMapper
 - FluentAssertions
 - Swagger
 
